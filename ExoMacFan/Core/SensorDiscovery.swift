@@ -1,6 +1,6 @@
 // ============================================================
 // File: SensorDiscovery.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
 // Description: Comprehensive sensor discovery for all Mac generations
 // ============================================================

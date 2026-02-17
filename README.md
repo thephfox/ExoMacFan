@@ -1,6 +1,6 @@
 # ExoMacFan — Apple Silicon Thermal & Fan Control
 
-**Created by:** Douglas Meirelles (thephfox) — [phfox.com](https://phfox.com)  
+**Created by:** Douglas M. — Code PhFox ([www.phfox.com](https://www.phfox.com))  
 **Version:** 1.0.0  
 **Date:** 2026-01-23  
 **Last Updated:** 2026-02-17  
@@ -8,7 +8,7 @@
 
 > **DISCLAIMER:** This software interacts directly with your Mac's hardware (fans, SMC, thermal sensors). **Use at your own risk.** The author is not responsible for any damage to your hardware. See [LICENSE](LICENSE) for full terms.
 >
-> **ATTRIBUTION:** If you fork, modify, or incorporate this code into your own project, you must credit the original author — Douglas Meirelles (thephfox) — in your README or documentation.
+> **ATTRIBUTION:** If you fork, modify, or incorporate this code into your own project, you must prominently credit the original source as **Douglas M. — Code PhFox ([www.phfox.com](https://www.phfox.com))** in your README, documentation, or about section.
 
 ---
 
@@ -113,6 +113,34 @@ The compile script auto-increments the build number (stored in `.build_number`) 
 By default, `compile-swift.sh` builds a **universal app bundle** (`arm64` + `x86_64`), so the generated app can run on both Apple Silicon and Intel Macs.
 
 > **Note:** Fan control requires running with admin privileges (`sudo`). Temperature monitoring works without elevated permissions.
+
+## Public Release Packaging
+
+Use this flow for GitHub-ready artifacts:
+
+1. Build the universal app:
+
+```bash
+./compile-swift.sh
+```
+
+1. Create a compressed DMG from the generated app bundle:
+
+```bash
+rm -rf build/dmg_temp
+mkdir -p build/dmg_temp
+cp -R build/ExoMacFan.app build/dmg_temp/
+hdiutil create -volname "ExoMacFan" -srcfolder build/dmg_temp -ov -format UDZO build/ExoMacFan.dmg
+rm -rf build/dmg_temp
+```
+
+1. Generate a SHA-256 checksum:
+
+```bash
+shasum -a 256 build/ExoMacFan.dmg
+```
+
+1. Attach both `build/ExoMacFan.dmg` and checksum output to your GitHub Release notes.
 
 ## Fan Control Modes
 
@@ -231,7 +259,7 @@ Build numbers auto-increment via `compile-swift.sh`. Each build injects:
 
 MIT License with Attribution and Hardware Disclaimer
 
-- You **must credit** the original author (Douglas Meirelles / thephfox / [phfox.com](https://phfox.com)) in any derivative work.
+- You **must credit** the original source (**Douglas M. / Code PhFox / [www.phfox.com](https://www.phfox.com)**) in any derivative work.
 - You use this software **at your own risk** — the author is not liable for hardware damage.
 
 See the [LICENSE](LICENSE) file for full terms.

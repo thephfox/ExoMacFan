@@ -1,6 +1,6 @@
 // ============================================================
 // File: ExoMacFanApp.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
 // Description: Main application entry point for ExoMacFan thermal management
 // ============================================================

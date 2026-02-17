@@ -1,6 +1,6 @@
 // ============================================================
 // File: SettingsView.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
 // Description: Application settings and configuration
 // ============================================================
@@ -152,7 +152,7 @@ struct SettingsView: View {
 
                     HStack {
                         Spacer()
-                        Text("by phfox.com")
+                        Text("Code PhFox — www.phfox.com")
                             .font(.caption2)
                             .foregroundStyle(.tertiary)
                         Spacer()

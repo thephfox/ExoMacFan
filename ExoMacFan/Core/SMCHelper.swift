@@ -1,8 +1,8 @@
 // ============================================================
 // File: SMCHelper.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-02-10
-// Last Modified by: Douglas Meirelles (thephfox)
+// Last Modified by: Douglas M.
 // Last Modified: 2026-02-10
 // Description: Privileged SMC write helper — installs a LaunchDaemon
 //              that runs at boot as root. First launch prompts for

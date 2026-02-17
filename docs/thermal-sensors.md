@@ -1,6 +1,6 @@
 # Apple Silicon Thermal Sensor Reference
 
-**Created by:** Douglas Meirelles (thephfox)  
+**Created by:** Douglas M. — Code PhFox ([www.phfox.com](https://www.phfox.com))  
 **Date:** 2026-01-23  
 **Last Updated:** 2026-02-17  
 **Purpose:** SMC sensor key mappings, data formats, and fan control details for ExoMacFan

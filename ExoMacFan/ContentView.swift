@@ -1,8 +1,8 @@
 // ============================================================
 // File: ContentView.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
-// Last Modified by: Douglas Meirelles (thephfox)
+// Last Modified by: Douglas M.
 // Last Modified: 2026-02-09
 // Description: Main SwiftUI interface for ExoMacFan
 // ============================================================
@@ -99,7 +99,7 @@ struct SidebarView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 2)
-            Text("by phfox.com")
+            Text("Code PhFox — www.phfox.com")
                 .font(.caption2)
                 .foregroundStyle(.quaternary)
                 .frame(maxWidth: .infinity)

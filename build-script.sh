@@ -2,7 +2,7 @@
 
 # ============================================================
 # ExoMacFan Build Script
-# Created by: Douglas Meirelles (thephfox)
+# Created by: Douglas M. — Code PhFox (www.phfox.com)
 # Date: 2026-01-23
 # Description: Automated build script with version management
 # ============================================================

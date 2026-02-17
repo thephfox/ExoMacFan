@@ -1,6 +1,6 @@
 // ============================================================
 // File: ExoMacFanHelper.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-02-10
 // Description: Privileged helper CLI for SMC fan control.
 //              Runs as root via osascript "with administrator privileges".

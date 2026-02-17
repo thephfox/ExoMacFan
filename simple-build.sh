@@ -2,7 +2,7 @@
 
 # ============================================================
 # Simple ExoMacFan Build Script
-# Created by: Douglas Meirelles (thephfox)
+# Created by: Douglas M. — Code PhFox (www.phfox.com)
 # Date: 2026-01-23
 # Description: Simple build without complex project structure
 # ============================================================
@@ -86,7 +86,7 @@ cat > "$CONTENTS_DIR/Info.plist" << EOF
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2026 Douglas Meirelles (thephfox). All rights reserved.</string>
+	<string>Copyright © 2026 Douglas M. — Code PhFox (www.phfox.com). All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>LSApplicationCategoryType</key>

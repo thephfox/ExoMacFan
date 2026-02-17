@@ -1,8 +1,8 @@
 // ============================================================
 // File: IOKitInterface.swift
-// Created by: Douglas Meirelles (thephfox)
+// Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
-// Last Modified by: Douglas Meirelles (thephfox)
+// Last Modified by: Douglas M.
 // Last Modified: 2026-02-09
 // Description: Low-level IOKit interface for SMC and sensor access
 // ============================================================
