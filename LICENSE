@@ -1,0 +1,47 @@
+MIT License with Attribution and Hardware Disclaimer
+
+Copyright (c) 2026 Douglas Meirelles (thephfox)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+1. ATTRIBUTION REQUIREMENT:
+   The above copyright notice, this permission notice, and clear attribution
+   to the original author — Douglas Meirelles (thephfox) — shall be included
+   in all copies, substantial portions, or derivative works of the Software.
+   Any derivative work, fork, or project that incorporates code from this
+   Software must prominently credit the original author in its README,
+   documentation, or about section.
+
+2. USE AT YOUR OWN RISK — HARDWARE DISCLAIMER:
+   This Software interacts directly with hardware components including, but
+   not limited to, fans, thermal sensors, and the System Management Controller
+   (SMC). Improper use of this Software may result in hardware damage,
+   overheating, data loss, reduced component lifespan, or other adverse
+   effects to your computer.
+
+   BY USING THIS SOFTWARE, YOU ACKNOWLEDGE AND AGREE THAT:
+
+   a) You use this Software entirely at your own risk.
+   b) The author(s) are NOT responsible for ANY damage to your hardware,
+      software, data, or any other property resulting from the use or
+      misuse of this Software.
+   c) The author(s) make NO guarantees about the safety, reliability,
+      or correctness of fan speed control, temperature readings, or any
+      other functionality provided by this Software.
+   d) You are solely responsible for monitoring your system's health
+      and discontinuing use if any adverse effects are observed.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE, INCLUDING BUT NOT LIMITED TO ANY DAMAGES TO HARDWARE, LOSS OF DATA,
+OR SYSTEM INSTABILITY CAUSED DIRECTLY OR INDIRECTLY BY THE USE OF THIS
+SOFTWARE.

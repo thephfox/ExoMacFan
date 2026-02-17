@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+/.build
+/Packages
+xcuserdata/
+DerivedData/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+
+# Build artifacts
+build/
+*.dmg
+*.log
+*.xcarchive
+
+# IDE
+.snapshots/
+*.swp
+*~
+
+# Project build artifacts
+BUILD_SUMMARY.md
+compile.log
+compile_helper.log
+.build_number
+
+# Helper daemon logs
+/tmp/exomacfan*
+
+# Windsurf
+.windsurf/
