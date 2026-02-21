@@ -114,6 +114,29 @@ By default, `compile-swift.sh` builds a **universal app bundle** (`arm64` + `x86
 
 > **Note:** Fan control requires running with admin privileges (`sudo`). Temperature monitoring works without elevated permissions.
 
+### Install on macOS when build is not notarized (advanced)
+
+If Gatekeeper shows **"cannot verify"** on a downloaded build, use one of these methods:
+
+1. Finder method (recommended for most users):
+   - Right-click `ExoMacFan.app`
+   - Click **Open**
+   - Confirm **Open** in the security prompt
+
+1. Privacy & Security method:
+   - Try opening the app once (let it fail)
+   - Go to **System Settings → Privacy & Security**
+   - Click **Open Anyway** for ExoMacFan
+
+1. Terminal method (advanced users only):
+
+```bash
+xattr -dr com.apple.quarantine /Applications/ExoMacFan.app
+open /Applications/ExoMacFan.app
+```
+
+> This bypass is only needed for unsigned/non-notarized builds. For public distribution with no manual bypass, use Apple Developer ID signing + notarization.
+
 ## Public Release Packaging
 
 Use this flow for GitHub-ready artifacts:

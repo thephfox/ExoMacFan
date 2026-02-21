@@ -3,7 +3,7 @@
 // Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
 // Last Modified by: Douglas M.
-// Last Modified: 2026-02-17
+// Last Modified: 2026-02-20
 // Description: Safe fan control with safety limits and profiles
 // ============================================================
 
@@ -34,6 +34,9 @@ class FanController: ObservableObject {
     private var isApplyingProfile = false
     private var latestPressureLevel: ThermalPressureLevel = .nominal
     private var latestComponentTemperatures: [ComponentType: Double] = [:]
+    private var lastProactiveRampUpAt: [Int: Date] = [:]
+    private let proactiveDownRampHoldSeconds: TimeInterval = 10.0
+    private let proactiveMaxStepDownRPM: Double = 180.0
     
     // MARK: - Initialization
     init() {
@@ -117,6 +120,10 @@ class FanController: ObservableObject {
     }
     
     func setFanProfile(_ profile: FanProfile) {
+        if profile.mode != .normal {
+            lastProactiveRampUpAt.removeAll()
+        }
+
         currentProfile = profile
         
         // Apply new profile if currently controlling
@@ -282,8 +289,26 @@ class FanController: ObservableObject {
 
         // Apply fan speeds via privileged helper
         for fan in fanSpeeds {
-            let targetRPM = calculateTargetRPM(for: fan)
+            let calculatedTargetRPM = calculateTargetRPM(for: fan)
             let lastApplied = lastFanSpeeds[fan.fanIndex] ?? fan.currentSpeed
+            var targetRPM = calculatedTargetRPM
+
+            // Pro-Active tune: keep higher fan speed a bit longer and reduce in smaller steps
+            // to avoid frequent oscillation around thermal boundaries.
+            if currentProfile.mode == .normal {
+                if targetRPM > lastApplied + 50 {
+                    lastProactiveRampUpAt[fan.fanIndex] = Date()
+                } else if targetRPM < lastApplied {
+                    let rampReference = lastProactiveRampUpAt[fan.fanIndex] ?? .distantPast
+                    let elapsed = Date().timeIntervalSince(rampReference)
+
+                    if elapsed < proactiveDownRampHoldSeconds {
+                        targetRPM = lastApplied
+                    } else {
+                        targetRPM = max(targetRPM, lastApplied - proactiveMaxStepDownRPM)
+                    }
+                }
+            }
 
             // Avoid noisy helper traffic when target change is tiny.
             if abs(targetRPM - lastApplied) < 75 {

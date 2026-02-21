@@ -2,6 +2,8 @@
 // File: MenuBarView.swift
 // Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
+// Last Modified by: Douglas M.
+// Last Modified: 2026-02-20
 // Description: Menu bar integration for quick access
 // ============================================================
 
@@ -11,6 +13,8 @@ import ServiceManagement
 struct MenuBarView: View {
     @EnvironmentObject var thermalMonitor: ThermalMonitor
     @EnvironmentObject var sensorDiscovery: SensorDiscovery
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -88,6 +92,7 @@ struct MenuBarView: View {
             // Actions
             VStack(spacing: 1) {
                 MenuRow(icon: "macwindow", label: "Open Dashboard") {
+                    dismiss()
                     openMainWindow()
                 }
                 MenuRow(icon: "xmark.circle", label: "Quit") {
@@ -127,11 +132,17 @@ struct MenuBarView: View {
     }
 
     private func openMainWindow() {
+        NSApplication.shared.setActivationPolicy(.regular)
+        NSApplication.shared.unhide(nil)
+        openWindow(id: "dashboard")
         NSApplication.shared.activate(ignoringOtherApps: true)
-        for window in NSApplication.shared.windows {
-            if window.canBecomeMain {
-                window.makeKeyAndOrderFront(nil)
-                break
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            for window in NSApplication.shared.windows.reversed() {
+                if window.canBecomeMain {
+                    window.makeKeyAndOrderFront(nil)
+                    window.orderFrontRegardless()
+                    return
+                }
             }
         }
     }

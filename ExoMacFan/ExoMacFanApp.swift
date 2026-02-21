@@ -2,6 +2,8 @@
 // File: ExoMacFanApp.swift
 // Created by: Douglas M. — Code PhFox (www.phfox.com)
 // Date: 2026-01-23
+// Last Modified by: Douglas M.
+// Last Modified: 2026-02-20
 // Description: Main application entry point for ExoMacFan thermal management
 // ============================================================
 
@@ -12,6 +14,8 @@ import AppKit
 struct ExoMacFanApp: App {
     @StateObject private var thermalMonitor = ThermalMonitor()
     @StateObject private var sensorDiscovery = SensorDiscovery()
+    @StateObject private var appWindowState = AppWindowState()
+    @State private var didSetupApplication = false
 
     init() {
         // Enforce single instance — multiple copies fighting over Ftst would be dangerous
@@ -38,11 +42,14 @@ struct ExoMacFanApp: App {
     }
 
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(id: "dashboard") {
             ContentView()
                 .environmentObject(thermalMonitor)
                 .environmentObject(sensorDiscovery)
                 .frame(minWidth: 720, idealWidth: 960, minHeight: 520, idealHeight: 680)
+                .background(MainWindowAccessor { window in
+                    appWindowState.configureMainWindow(window)
+                })
                 .onAppear {
                     setupApplication()
                 }
@@ -60,6 +67,9 @@ struct ExoMacFanApp: App {
     }
     
     private func setupApplication() {
+        guard !didSetupApplication else { return }
+        didSetupApplication = true
+
         // Clean up stale Ftst from a previous crash before doing anything else.
         // This ensures the app always starts with macOS in full control of fans.
         thermalMonitor.ensureSystemControlOnStartup()
@@ -128,6 +138,52 @@ struct ExoMacFanApp: App {
         alert.informativeText = error.localizedDescription
         alert.alertStyle = .critical
         alert.runModal()
+    }
+}
+
+@MainActor
+final class AppWindowState: NSObject, ObservableObject, NSWindowDelegate {
+    private weak var mainWindow: NSWindow?
+
+    func configureMainWindow(_ window: NSWindow) {
+        guard mainWindow !== window else { return }
+        mainWindow?.delegate = nil
+        mainWindow = window
+        window.isReleasedWhenClosed = false
+        window.delegate = self
+        NSApplication.shared.setActivationPolicy(.regular)
+    }
+
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        // Keep app running in the menu bar, but hide dashboard + Dock icon.
+        sender.orderOut(nil)
+        NSApplication.shared.hide(nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            NSApplication.shared.setActivationPolicy(.accessory)
+        }
+        return false
+    }
+}
+
+private struct MainWindowAccessor: NSViewRepresentable {
+    let onResolve: (NSWindow) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            if let window = view.window {
+                onResolve(window)
+            }
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        DispatchQueue.main.async {
+            if let window = nsView.window {
+                onResolve(window)
+            }
+        }
     }
 }
 
