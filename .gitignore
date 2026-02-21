@@ -38,3 +38,6 @@ compile_helper.log
 
 # Windsurf
 .windsurf/
+
+# IDE workspace files
+*.code-workspace

@@ -1,0 +1,51 @@
+# ============================================================
+# File: build.yml
+# Created by: Douglas M. — Code PhFox (www.phfox.com)
+# Date: 2026-02-20
+# Description: CI build pipeline — compiles ExoMacFan on every
+#              push and pull request to the main branch.
+# ============================================================
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Compile (macOS)
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Build (compile-swift.sh)
+        run: |
+          chmod +x compile-swift.sh
+          ./compile-swift.sh
+        env:
+          TARGET_ARCHS: arm64 x86_64
+          MACOS_TARGET: "14.0"
+
+      - name: Verify binary exists
+        run: |
+          test -f build/ExoMacFan.app/Contents/MacOS/ExoMacFan || (echo "❌ App binary not found" && exit 1)
+          test -f build/ExoMacFan.app/Contents/MacOS/ExoMacFanHelper || (echo "❌ Helper binary not found" && exit 1)
+          echo "✅ Build artifacts verified"
+
+      - name: Check architectures (universal binary)
+        run: |
+          lipo -info build/ExoMacFan.app/Contents/MacOS/ExoMacFan
+          lipo -info build/ExoMacFan.app/Contents/MacOS/ExoMacFanHelper
